@@ -2,7 +2,7 @@ from typing import Union
 
 
 # 1. Рядки (Strings) ===============================================
-def string_length(string: str) -> str:
+def string_length(string: str) -> int:
     """
     Функція приймає рядок і повертає його довжину.
     """
@@ -17,14 +17,14 @@ def union_string(string1: str, string2: str) -> str:
 
 
 # 2. Числа (Int/float) ===============================================
-def square(number) -> Union[int, float]:
+def square(number: Union[int, float]) -> Union[int, float]:
     """
     Функція приймає число і повертає його квадрат.
     """
     return number ** 2
 
 
-def sum_of_numbers(number1: int, number2: int) -> Union[int, float]:
+def sum_of_numbers(number1: Union[int, float], number2: Union[int, float]) -> Union[int, float]:
     """
     Функція приймає два числа і повертає їхню суму.
     """
@@ -40,7 +40,7 @@ def division(number1: int, number2: int) -> Union[int, float]:
 
 
 # 3. Списки (Lists) ===============================================
-def average_value(user_list: list) -> Union[int, float]:
+def average_value(user_list: list) -> float:
     """
     Обчислення середнього значення списку чисел.
     """
