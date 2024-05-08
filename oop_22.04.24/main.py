@@ -58,7 +58,10 @@ class Car:
         return f"<{self.model}: fuel={self.fuel} distance={self.trip_distance}>"
 
 
-MODEL_COLOR = [("DODGE", "RED"), ("CHEVROLET", "YELLOW"), ("FORD", "ORANGE")]
+MODEL_COLOR = [("DODGE", "RED"),
+               ("CHEVROLET", "YELLOW"),
+               ("FORD", "ORANGE")
+               ]
 cars = [Car(model=model, color=color) for model, color in MODEL_COLOR]
 
 desired_dist = random.randrange(3, 9)
