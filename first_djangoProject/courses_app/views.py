@@ -4,4 +4,8 @@ from django.shortcuts import render
 
 
 def is_auntification(request):
-    return render(request, "auntification_information.html")
+    message = {"message": f"Авторизованный пользователь: {request.user.username}"}
+    if request.user.is_anonymous:
+        message.update({"message": "Анонимный пользователь, авторизуйтесь!"})
+        return render(request, "auntification_information.html", message)
+    return render(request, "auntification_information.html", message)
