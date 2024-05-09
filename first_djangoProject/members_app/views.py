@@ -1,10 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
-# Create your views here.
+def index(request):
+    return render(request, "index.html")
+
+
 def input_information(request):
-    return render(request, "input.html")
+    if request.method == "POST":
+        user_input = request.POST.get('user_input')
+        request.session['user_input'] = user_input
+        return redirect("show_information")
+    else:
+        return render(request, "input.html")
 
 
 def show_information(request):
-    return render(request, "show.html")
+    context = {"user_input": request.session.get("user_input")}
+    return render(request, "show.html", context)

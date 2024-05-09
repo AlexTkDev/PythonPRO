@@ -25,6 +25,7 @@
       <list>
         <option value="$MODULE_DIR$/members_app/templates" />
         <option value="$MODULE_DIR$/courses_app/templates" />
+        <option value="$MODULE_DIR$/first_djangoProject/templates" />
       </list>
     </option>
   </component>

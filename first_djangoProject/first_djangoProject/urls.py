@@ -18,13 +18,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from members_app.views import input_information, show_information
+from members_app.views import input_information, show_information, index
 from courses_app.views import is_auntification
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("input/", input_information),
-    path("show/", show_information),
-    path("is-auntification/", is_auntification),
+    path("", index, name="index"),
+    path("input/", input_information, name="input_information"),
+    path("show/", show_information, name="show_information"),
+    path("is-auntification/", is_auntification, name="is_auntification"),
 ]
