@@ -24,6 +24,3 @@ def show_information(request):
         return render(request, "show.html", context)
     else:
         return HttpResponseBadRequest("Invalid request method!")
-
-
-

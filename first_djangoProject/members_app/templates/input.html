@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block Show %}
+{% block title %}
     <title>Input</title>
 {% endblock %}
 
@@ -8,7 +8,7 @@
 
     <div class="container">
         <h3>Ввод от пользователя</h3><br>
-        <form method="post" id="user_input_form">{% csrf_token %}
+        <form method="post" id="user_input_form" action="{% url 'input_information' %}">{% csrf_token %}
             <div class="mb-3">
                 <label for="user_input" class="form-label">Введите что-нибудь</label>
                 <input type="text" class="form-control" id="user_input" name="user_input">
