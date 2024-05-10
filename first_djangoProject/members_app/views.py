@@ -17,3 +17,6 @@ def input_information(request):
 def show_information(request):
     context = {"user_input": request.session.get("user_input")}
     return render(request, "show.html", context)
+
+
+
