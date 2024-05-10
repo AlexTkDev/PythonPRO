@@ -23,7 +23,7 @@ def show_information(request):
         context = {"user_input": request.session.get("user_input")}
         return render(request, "show.html", context)
     else:
-        return HttpResponseBadRequest("Invalid request method")
+        return HttpResponseBadRequest("Invalid request method!")
 
 
 
