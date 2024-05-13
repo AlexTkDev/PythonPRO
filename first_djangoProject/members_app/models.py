@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+
+class Member(models.Model):
+    save_text = models.TextField()
+
+    def __str__(self):
+        return self.save_text
