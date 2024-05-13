@@ -8,7 +8,12 @@
     <div class="container overflow-hidden">
         <h3>Результат</h3>
         <div class="alert alert-warning alert-dismissible fade show gx-10" role="alert">
-            Вот ваш введённый текст: <br> <strong>{{ user_input.last }}</strong>
+            Вот ваш введённый текст: <br>
+                {% if user_input %}
+                    <strong>{{ user_input.last }}</strong>
+                {% else %}
+                    <em>Нет данных для отображения</em>
+                {% endif %}
         </div>
         <div>
             <a href="{% url "input_information" %}" class="btn btn-primary"> Назад</a>
