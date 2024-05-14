@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseBadRequest
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from .models import Member
 
 
@@ -9,8 +9,9 @@ def index(request):
 
 def input_information(request):
     if request.method == "POST":
-        Member.objects.create(save_text=request.POST["user_input"])
-        return redirect("show_information")
+        if "user_input" in request.POST and request.POST["user_input"]:
+            Member.objects.create(save_text=request.POST["user_input"])
+            return redirect("show_information")
     return render(request, "input.html")
 
 
@@ -19,3 +20,9 @@ def show_information(request):
         context = {"user_input": Member.objects.all()}
         return render(request, "show.html", context)
     return HttpResponseBadRequest("Invalid request method!")
+
+
+def remove_member(request, member_id):
+    member = get_object_or_404(Member, id=member_id)
+    member.delete()
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])

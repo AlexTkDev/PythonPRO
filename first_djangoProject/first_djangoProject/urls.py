@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from members_app.views import input_information, show_information, index
+from members_app.views import input_information, show_information, index, remove_member
 from courses_app.views import is_auntification
 
 
@@ -28,4 +28,5 @@ urlpatterns = [
     path("input/", input_information, name="input_information"),
     path("show/", show_information, name="show_information"),
     path("is-auntification/", is_auntification, name="is_auntification"),
+    path("show/remove-member/<int:member_id>/", remove_member, name="remove_member"),
 ]
