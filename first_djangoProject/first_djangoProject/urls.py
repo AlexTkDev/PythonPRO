@@ -16,17 +16,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
-from members_app.views import input_information, show_information, index, remove_member
 from courses_app.views import is_auntification
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", index, name="index"),
-    path("input/", input_information, name="input_information"),
-    path("show/", show_information, name="show_information"),
     path("is-auntification/", is_auntification, name="is_auntification"),
-    path("show/remove-member/<int:member_id>/", remove_member, name="remove_member"),
+    path("", include("members_app.urls")),
 ]
