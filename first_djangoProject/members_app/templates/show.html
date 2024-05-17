@@ -10,15 +10,17 @@
         <div class="alert alert-warning alert-dismissible fade show gx-10" role="alert">
             <h3>Вот ваш введённый текст:</h3>
             {% if user_input %}
-                <p><strong>{{ user_input.last }}</strong></p>
-
-                <h4>Всё что вы ранее ввели:</h4>
-                {% for member in user_input %}
-                    <li>
-                        <a href="{% url 'remove_member' member.id %}" class="btn btn-danger btn-sm">X</a>
-                        <em>{{ member.save_text }}</em>
-                    </li><br>
-                {% endfor %}
+                <p><strong>{{ user_input.first.save_text }}</strong></p>
+                
+                <ul>
+                    <h4>Всё что вы ранее ввели:</h4>
+                    {% for member in user_input %}
+                        <li>
+                            <a href="{% url 'remove_member' member.id %}" class="btn btn-danger btn-sm">X</a>
+                            <em>{{ member.save_text }}</em>
+                        </li><br>
+                    {% endfor %}
+                </ul>
             {% else %}
                 <em>Нет данных для отображения</em>
             {% endif %}

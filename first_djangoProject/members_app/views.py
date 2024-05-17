@@ -17,7 +17,7 @@ def input_information(request):
 
 def show_information(request):
     if request.method == "GET":
-        context = {"user_input": Member.objects.all()}
+        context = {"user_input": Member.objects.all().order_by("-id")}
         return render(request, "show.html", context)
     return HttpResponseBadRequest("Invalid request method!")
 
