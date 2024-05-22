@@ -1,26 +1,3 @@
-.bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/*
-* Globals
-*/
-
-
-/* Custom default button */
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-    color: #333;
-    text-shadow: none; /* Prevent inheritance from `body` */
-}
-
-
 /*
  * Base structure
  */
@@ -33,7 +10,6 @@ body {
 .cover-container {
     max-width: 42em;
 }
-
 
 /*
  * Header
@@ -70,4 +46,21 @@ body {
 
 .message_text{
     color: black;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Custom default button */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+    color: #333;
+    text-shadow: none; /* Prevent inheritance from `body` */
 }
