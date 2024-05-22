@@ -64,3 +64,15 @@ body {
     color: #333;
     text-shadow: none; /* Prevent inheritance from `body` */
 }
+
+thead th:nth-child(1) {
+  width: 70%;
+}
+
+thead th:nth-child(2) {
+  width: 15%;
+}
+
+thead th:nth-child(3) {
+  width: 15%;
+}
