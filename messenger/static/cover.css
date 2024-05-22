@@ -67,3 +67,7 @@ body {
         font-size: 3.5rem;
     }
 }
+
+.message_text{
+    color: black;
+}
