@@ -18,7 +18,13 @@
                 <tbody>
                 {% for message in messages %}
                     <tr>
-                        <td>{{ message.message }}</td>
+                        <td>
+                            <form action="{% url 'remove_text' message.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-secondary text-white-50 btn-sm">X</button>
+                            </form>
+                            {{ message.message }}
+                        </td>
                         <td>{{ message.author.username }}</td>
                         <td>{{ message.date_sent }}</td>
                     </tr>

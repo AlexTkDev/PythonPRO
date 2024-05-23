@@ -1,6 +1,8 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import UserMessage
 from .form import UserLoginForm, UserRegistrationForm
@@ -32,6 +34,13 @@ def save_text(request):
             }
             return render(request, "messenger_app/index.html", context)
     return redirect('index')
+
+
+@require_POST
+def remove_text(request, text_id):
+    text = get_object_or_404(UserMessage, id=text_id)
+    text.delete()
+    return redirect(request.META.get("HTTP_REFERER", "index"))
 
 
 def login(request):
