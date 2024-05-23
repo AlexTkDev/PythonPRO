@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from .models import UserMessage
-from .form import UserLoginForm
+from .form import UserLoginForm, UserRegistrationForm
 
 
 # Create your views here.
@@ -46,5 +46,22 @@ def login(request):
                 return redirect('index')
     else:
         form = UserLoginForm()
-    context = {"form": form}
+    context = {"form": form, "title": "Авторизация"}
     return render(request, "messenger_app/login.html", context)
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserRegistrationForm()
+    context = {"form": form, "title": "Регистрация"}
+    return render(request, "messenger_app/register.html", context)
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('index')
