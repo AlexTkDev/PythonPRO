@@ -1,8 +1,21 @@
 from django.contrib import admin
 from .models import UserMessage
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
-# Register your models here.
+class UserMessageInline(admin.TabularInline):
+    model = UserMessage
+    extra = 0
+    can_delete = True
+
+
+class UserAdmin(BaseUserAdmin):
+    inlines = [UserMessageInline]
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 
 class UserMessageAdmin(admin.ModelAdmin):
