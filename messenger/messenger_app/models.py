@@ -13,7 +13,10 @@ class UserMessage(models.Model):
     class Meta:
         verbose_name = "запись"
         verbose_name_plural = "записи"
-        permissions = [("give_access_to_chat", "give the user access to the chat")]
+        permissions = [
+            ("give_access_to_chat", "give the user access to the chat"),
+            ("give_access_to_delete_message", "give the user access to the delete message")
+        ]
 
     def __str__(self):
         return self.message if self.message else "Поле сообщение не заполнено"

@@ -8,6 +8,7 @@ from .form import UserLoginForm, UserRegistrationForm
 
 
 # Create your views here.
+@login_required(login_url='login')
 def index(request):
     messages = UserMessage.objects.all().order_by('-date_sent')
     context = {
