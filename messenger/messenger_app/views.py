@@ -1,5 +1,5 @@
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -11,9 +11,13 @@ from .form import UserLoginForm, UserRegistrationForm
 @login_required(login_url='login')
 def index(request):
     messages = UserMessage.objects.all().order_by('-date_sent')
+    give_access_to_delete_message = request.user.has_perm("messenger_app.give_access_to_delete_message")
+    give_access_to_chat = request.user.has_perm("messenger_app.give_access_to_chat")
     context = {
         "messages": messages,
         "title": "Messenger",
+        "give_access_to_delete_message": give_access_to_delete_message,
+        "give_access_to_chat": give_access_to_chat,
     }
     return render(request, "messenger_app/index.html", context)
 
@@ -37,6 +41,8 @@ def save_text(request):
 
 
 @require_POST
+@permission_required("messenger_app.give_access_to_delete_message")
+@permission_required("messenger_app.give_access_to_chat")
 def remove_text(request, text_id):
     text = get_object_or_404(UserMessage, id=text_id)
     text.delete()
@@ -71,6 +77,7 @@ def register(request):
     return render(request, "messenger_app/register.html", context)
 
 
+@login_required
 def logout(request):
     auth.logout(request)
     return redirect('index')
