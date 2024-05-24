@@ -3,15 +3,15 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
-    
+
     {% if not give_access_to_chat %}
-        
+
         <div class="row justify-content-center align-items-center">
             <p><b>{{ user.username }}</b>, У вас нет прав для просмотра контента!</p>
         </div>
-        
+
     {% else %}
-        
+
         <div class="container mt-5">
             <div class="container mt-5">
                 <p class="mb-3">Добро пожаловать <b>{{ user.username }}</b></p>
@@ -30,7 +30,7 @@
                     {% for message in messages %}
                         <tr>
                             <td>
-                                {% if give_access_to_delete_message %}
+                                {% if message.author.username == user.username or give_access_to_delete_message %}
                                     <form action="{% url 'remove_text' message.id %}" method="post"
                                           style="display:inline;">
                                         {% csrf_token %}
