@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from datetime import timedelta
+from django.utils import timezone
 
 
 # Create your models here.
@@ -17,6 +19,16 @@ class UserMessage(models.Model):
             ("give_access_to_chat", "give the user access to the chat"),
             ("give_access_to_delete_message", "give the user access to the delete message")
         ]
+
+    def can_edit(self, user):
+        return self.author == user and timezone.now() - self.date_sent < timedelta(days=1)
+
+    def can_delete(self, user):
+        return user.is_superuser or (self.author == user and timezone.now() - self.date_sent < timedelta(days=1))
+
+    @property
+    def can_be_deleted(self):
+        return timezone.now() - self.date_sent < timedelta(days=1)
 
     def __str__(self):
         return self.message if self.message else "Поле сообщение не заполнено"

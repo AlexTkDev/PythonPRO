@@ -3,15 +3,11 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
-
     {% if not give_access_to_chat %}
-
         <div class="row justify-content-center align-items-center">
             <p><b>{{ user.username }}</b>, У вас нет прав для просмотра контента!</p>
         </div>
-
     {% else %}
-
         <div class="container mt-5">
             <div class="container mt-5">
                 <p class="mb-3">Добро пожаловать <b>{{ user.username }}</b></p>
@@ -30,9 +26,8 @@
                     {% for message in messages %}
                         <tr>
                             <td>
-                                {% if message.author.username == user.username or give_access_to_delete_message %}
-                                    <form action="{% url 'remove_text' message.id %}" method="post"
-                                          style="display:inline;">
+                                {% if message.can_delete_by_user %}
+                                    <form action="{% url 'remove_text' message.id %}" method="post" style="display:inline;">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-secondary text-white-50 btn-sm">X</button>
                                     </form>
@@ -46,15 +41,13 @@
                     </tbody>
                 </table>
             </div>
-
             <!-- Форма для отправки сообщения -->
             <div class="card">
                 <div class="card-header"><span class="message_text">Отправить сообщение</span></div>
                 <form method="post" action="{% url 'save_text' %}" class="card-body">
                     {% csrf_token %}
                     <label for="message_text" class="form-label">
-                        <span class="message_text">Введите сообщение:</span>
-                    </label>
+                        <span class="message_text">Введите сообщение:</span></label>
                     <input type="text" class="form-control" id="message_text" name="message_text" required>
                     <br>
                     <button type="submit" class="btn btn-secondary text-white-50">Отправить</button>
@@ -64,7 +57,5 @@
                 </form>
             </div>
         </div>
-
     {% endif %}
-
 {% endblock %}
