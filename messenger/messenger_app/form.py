@@ -16,7 +16,6 @@ class UserLoginForm(AuthenticationForm):
         fields = ('username', 'password')
 
 
-
 class UserRegistrationForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         "class": "form-control", "placeholder": "например, Megamozg"

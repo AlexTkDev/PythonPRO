@@ -27,12 +27,16 @@
                         <tr>
                             <td>
                                 {% if message.can_delete_by_user %}
-                                    <form action="{% url 'remove_text' message.id %}" method="post" style="display:inline;">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-secondary text-white-50 btn-sm">X</button>
+                                    <form action="{% url 'remove_text' message.id %}" method="post"
+                                          style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-secondary text-white-50 btn-sm">X</button>
+                                        <a href="{% url 'edit_text' message.id %}" class="btn btn-secondary text-white-50 btn-sm">Редактировать</a>
+
                                     </form>
                                 {% endif %}
                                 {{ message.message }}
+                                </form>
                             </td>
                             <td>{{ message.author.username }}</td>
                             <td>{{ message.date_sent }}</td>
@@ -42,7 +46,7 @@
                 </table>
             </div>
             <!-- Форма для отправки сообщения -->
-            <div class="card">
+            <div class=" card">
                 <div class="card-header"><span class="message_text">Отправить сообщение</span></div>
                 <form method="post" action="{% url 'save_text' %}" class="card-body">
                     {% csrf_token %}

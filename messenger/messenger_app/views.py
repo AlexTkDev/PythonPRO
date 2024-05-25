@@ -42,6 +42,34 @@ def save_text(request):
 
 
 @login_required
+def edit_text(request, text_id):
+    message = get_object_or_404(UserMessage, id=text_id)
+    if not message.can_edit(request.user):
+        return redirect('index')
+
+    if request.method == "POST":
+        new_message_text = request.POST.get("message_text", "")
+        if new_message_text:
+            message.message = new_message_text
+            message.save()
+            return redirect('index')
+        else:
+            context = {
+                "message": message,
+                "error": "Сообщение не может быть пустым.",
+                "title": "Редактировать сообщение"
+            }
+            return render(request, "messenger_app/edit_text.html", context)
+
+    context = {
+        "message": message,
+        "title": "Редактировать сообщение"
+    }
+    return render(request, "messenger_app/edit_text.html", context)
+
+
+
+@login_required
 @require_POST
 def remove_text(request, text_id):
     text = get_object_or_404(UserMessage, id=text_id)

@@ -1,0 +1,21 @@
+{% extends "messenger_app/base.html" %}
+
+{% block title %} Редактировать сообщение {% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header"><span class="message_text">Редактировать сообщение</span></div>
+        <form method="post" action="{% url 'edit_text' message.id %}" class="card-body">
+            {% csrf_token %}
+            <label for="message_text" class="form-label">
+                <span class="message_text">Введите сообщение:</span>
+            </label>
+            <input type="text" class="form-control" id="message_text" name="message_text" value="{{ message.message }}" required>
+            <br>
+            <button type="submit" class="btn btn-secondary text-white-50">Сохранить</button>
+            {% if error %}
+                <div class="alert alert-danger mt-3">{{ error }}</div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
