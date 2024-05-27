@@ -66,13 +66,13 @@ body {
 }
 
 thead th:nth-child(1) {
-  width: 65%;
+  width: 80%;
 }
 
 thead th:nth-child(2) {
-  width: 15%;
+  width: 10%;
 }
 
 thead th:nth-child(3) {
-  width: 20%;
+  width: 10%;
 }
