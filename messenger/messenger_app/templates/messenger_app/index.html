@@ -39,7 +39,7 @@
                                 </form>
                             </td>
                             <td>{{ message.author.username }}</td>
-                            <td>{{ message.date_sent|date:"d m Y H:i" }}</td>
+                            <td>{{ message.date_sent|date:"d m Y H:i" }},<br> {{ message.date_sent|timesince }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

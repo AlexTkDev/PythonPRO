@@ -21,7 +21,7 @@ class UserMessage(models.Model):
         ]
 
     def can_edit(self, user):
-        return self.author == user or self.author == user.is_superuser
+        return user.is_superuser or (self.author == user and timezone.now() - self.date_sent < timedelta(days=1))
 
     def can_delete(self, user):
         return user.is_superuser or (self.author == user and timezone.now() - self.date_sent < timedelta(days=1))
