@@ -10,7 +10,7 @@
     {% else %}
         <div class="container mt-5">
             <div class="container mt-5">
-                <p class="mb-3">Добро пожаловать <b>{{ user.username }}</b></p>
+                <p class="mb-3">Добро пожаловать <b>{{ user.username|title }}</b></p>
             </div>
             <!-- Таблица с сообщениями -->
             <div class="card mb-3">
@@ -31,7 +31,7 @@
                                           style="display:inline;">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-secondary text-white-50 btn-sm">X</button>
-                                        <a href="{% url 'edit_text' message.id %}" 
+                                        <a href="{% url 'edit_text' message.id %}"
                                            class="btn btn-secondary text-white-50 btn-sm">Редактировать</a>
                                     </form>
                                 {% endif %}
