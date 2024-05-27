@@ -31,8 +31,8 @@
                                           style="display:inline;">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-secondary text-white-50 btn-sm">X</button>
-                                        <a href="{% url 'edit_text' message.id %}" class="btn btn-secondary text-white-50 btn-sm">Редактировать</a>
-
+                                        <a href="{% url 'edit_text' message.id %}" 
+                                           class="btn btn-secondary text-white-50 btn-sm">Редактировать</a>
                                     </form>
                                 {% endif %}
                                 {{ message.message }}

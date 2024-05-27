@@ -10,7 +10,8 @@
             <label for="message_text" class="form-label">
                 <span class="message_text">Введите сообщение:</span>
             </label>
-            <input type="text" class="form-control" id="message_text" name="message_text" value="{{ message.message }}" required>
+            <input type="text" class="form-control" id="message_text" name="message_text" 
+                   value="{{ message.message }}" required>
             <br>
             <button type="submit" class="btn btn-secondary text-white-50">Сохранить</button>
             {% if error %}
