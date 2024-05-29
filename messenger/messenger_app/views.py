@@ -1,5 +1,5 @@
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from .models import UserMessage
@@ -66,7 +66,6 @@ def edit_text(request, text_id):
         "title": "Редактировать сообщение"
     }
     return render(request, "messenger_app/edit_text.html", context)
-
 
 
 @login_required
