@@ -5,6 +5,7 @@ from django.core.exceptions import PermissionDenied
 
 class SuperuserRequiredMixin:
     """Проверка, является ли пользователь суперпользователем."""
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:
             raise PermissionDenied
@@ -13,6 +14,7 @@ class SuperuserRequiredMixin:
 
 class ActiveUserRequiredMixin:
     """Проверяет, что пользователь активен (учетная запись не заблокирована)."""
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_active:
             raise PermissionDenied("Учетная запись пользователя заблокирована.")
@@ -21,6 +23,7 @@ class ActiveUserRequiredMixin:
 
 class CanEditMessageMixin:
     """Может ли пользователь редактировать сообщение."""
+
     def dispatch(self, request, *args, **kwargs):
         message = self.get_object()
         if not message.can_edit(request.user):
@@ -30,6 +33,7 @@ class CanEditMessageMixin:
 
 class CanDeleteMessageMixin:
     """Может ли пользователь удалять сообщение."""
+
     def dispatch(self, request, *args, **kwargs):
         message = self.get_object()
         if not message.can_delete(request.user):
@@ -49,6 +53,7 @@ class FormInvalidMessageMixin:
 
 class RedirectIfAuthenticatedMixin:
     """Перенаправление аутентифицированных пользователей на главную страницу."""
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('index')
@@ -57,6 +62,7 @@ class RedirectIfAuthenticatedMixin:
 
 class UserIsAuthorMixin:
     """Проверка, является ли пользователь автором сообщения."""
+
     def dispatch(self, request, *args, **kwargs):
         message = self.get_object()
         if message.author != request.user:
@@ -76,6 +82,7 @@ class AdminOnlyMixin(PermissionRequiredMixin):
 
 class OwnerOrAdminMixin:
     """Является ли пользователь владельцем сообщения или администратором."""
+
     def dispatch(self, request, *args, **kwargs):
         message = self.get_object()
         if message.author != request.user and not request.user.is_superuser:
@@ -85,6 +92,7 @@ class OwnerOrAdminMixin:
 
 class StaffRequiredMixin:
     """Проверка, является ли пользователь сотрудником (staff)."""
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
             raise PermissionDenied("Доступ разрешен только для сотрудников.")
