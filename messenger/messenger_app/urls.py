@@ -1,13 +1,12 @@
 from django.urls import path
-from .views import index, save_text, login, register, logout, remove_text, edit_text
-
+from .views import IndexView, SaveTextView, EditTextView, RemoveTextView, LoginView, RegisterView, LogoutView
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('save_text/', save_text, name='save_text'),
-    path('login/', login, name='login'),
-    path('register/', register, name='register'),
-    path('logout/', logout, name='logout'),
-    path('edit_text/<int:text_id>', edit_text, name='edit_text'),
-    path('remove_text/<int:text_id>', remove_text, name='remove_text'),
+    path('', IndexView.as_view(), name='index'),
+    path('save_text/', SaveTextView.as_view(), name='save_text'),
+    path('edit_text/<int:text_id>/', EditTextView.as_view(), name='edit_text'),
+    path('remove_text/<int:text_id>/', RemoveTextView.as_view(), name='remove_text'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
