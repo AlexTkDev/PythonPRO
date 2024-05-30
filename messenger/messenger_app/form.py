@@ -1,9 +1,10 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from messenger_app.models import User
 from django import forms
+from .mixins import FormInvalidMessageMixin
 
 
-class UserLoginForm(AuthenticationForm):
+class UserLoginForm(FormInvalidMessageMixin, AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         "class": "form-control", "placeholder": "например, Megamozg"
     }))
@@ -16,7 +17,7 @@ class UserLoginForm(AuthenticationForm):
         fields = ('username', 'password')
 
 
-class UserRegistrationForm(UserCreationForm):
+class UserRegistrationForm(FormInvalidMessageMixin, UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         "class": "form-control", "placeholder": "например, Megamozg"
     }))

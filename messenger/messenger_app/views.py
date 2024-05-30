@@ -116,7 +116,7 @@ class LoginView(RedirectIfAuthenticatedMixin, View):
             if user:
                 auth.login(request, user)
                 return redirect('index')
-        context = {"form": form, "title": "Авторизация"}
+        context = {"form": form, "title": "Авторизация", "error": "Форма заполнена неверно."}
         return render(request, "messenger_app/login.html", context)
 
 
@@ -131,7 +131,7 @@ class RegisterView(RedirectIfAuthenticatedMixin, View):
         if form.is_valid():
             form.save()
             return redirect('login')
-        context = {"form": form, "title": "Регистрация"}
+        context = {"form": form, "title": "Регистрация", "error": "Форма заполнена неверно."}
         return render(request, "messenger_app/register.html", context)
 
 
