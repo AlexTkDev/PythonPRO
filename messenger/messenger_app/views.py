@@ -6,7 +6,7 @@ from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 from .models import UserMessage
 from .form import UserLoginForm, UserRegistrationForm
-from .utils import (
+from .mixins import (
     CustomLoginRequiredMixin,
     CanEditMessageMixin,
     CanDeleteMessageMixin,
