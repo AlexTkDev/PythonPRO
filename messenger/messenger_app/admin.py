@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserMessage
+from .models import UserMessage, MessageLog
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
@@ -26,3 +26,8 @@ class UserMessageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(UserMessage, UserMessageAdmin)
+
+
+@admin.register(MessageLog)
+class MessageLogAdmin(admin.ModelAdmin):
+    list_display = ('user', 'action', 'date')
