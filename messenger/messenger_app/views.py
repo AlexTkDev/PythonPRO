@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.contrib import messages as system_messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
@@ -19,6 +20,7 @@ from .mixins import (
     OwnerOrAdminMixin,
     StaffRequiredMixin
 )
+from .signals import create_superuser_notification
 
 
 class IndexView(CustomLoginRequiredMixin, ActiveUserRequiredMixin, View):
@@ -43,7 +45,11 @@ class SaveTextView(CustomLoginRequiredMixin, ActiveUserRequiredMixin, FormInvali
     def post(self, request):
         message_text = request.POST.get("message_text", "")
         if message_text:
-            UserMessage.objects.create(message=message_text, author=request.user)
+            user_message = UserMessage(message=message_text, author=request.user)
+            user_message.save()
+            # Передаем запрос в сигнал
+            user_message.request = request
+            create_superuser_notification(UserMessage, user_message, created=True)
             return redirect('index')
         else:
             messages = UserMessage.objects.all().order_by('-date_sent')
@@ -79,9 +85,9 @@ class EditTextView(CustomLoginRequiredMixin, ActiveUserRequiredMixin, CanEditMes
             message.save()
             return redirect('index')
         else:
+            system_messages.error(request,"Сообщение не может быть пустым.")
             context = {
                 "message": message,
-                "error": "Сообщение не может быть пустым.",
                 "title": "Редактировать сообщение"
             }
             return render(request, "messenger_app/edit_text.html", context)

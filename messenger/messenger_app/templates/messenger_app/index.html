@@ -3,6 +3,16 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
+
+    {% if system_messages %}
+        <ul class="messages">
+            {% for message in system_messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+
     {% if not give_access_to_chat %}
         <div class="row justify-content-center align-items-center">
             <p><b>{{ user.username }}</b>, У вас нет прав для просмотра контента!</p>
@@ -29,8 +39,8 @@
                                 {% if message.can_delete_by_user %}
                                     <form action="{% url 'remove_text' message.id %}" method="post"
                                           style="display:inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-secondary text-white-50 btn-sm">X</button>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-secondary text-white-50 btn-sm">X</button>
                                         <a href="{% url 'edit_text' message.id %}"
                                            class="btn btn-secondary text-white-50 btn-sm">Редактировать</a>
                                     </form>
