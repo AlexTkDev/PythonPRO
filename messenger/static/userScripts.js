@@ -26,8 +26,7 @@ function updateStatuses() {
     });
 }
 
-// Update statuses every 30 seconds
+// Обновление статуса каждые 30 секунд
 setInterval(updateStatuses, 30000);
 
-// Initial update
 document.addEventListener("DOMContentLoaded", updateStatuses);
