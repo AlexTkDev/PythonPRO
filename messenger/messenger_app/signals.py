@@ -2,7 +2,9 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_save
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import MessageLog, UserMessage
+from .models import MessageLog, UserMessage, UserStatus
+from django.contrib.auth.signals import user_logged_in, user_logged_out
+
 
 
 @receiver(pre_save, sender=UserMessage)
@@ -21,3 +23,17 @@ def create_superuser_notification(sender, instance, created, **kwargs):
         # Добавляем сообщение в сессию
         if hasattr(instance, 'request') and instance.request:
             messages.success(instance.request, 'Вы успешно отправили сообщение суперюзеру')
+
+
+@receiver(user_logged_in)
+def set_user_online(sender, user, request, **kwargs):
+    status, created = UserStatus.objects.get_or_create(user=user)
+    status.is_online = True
+    status.save()
+
+
+@receiver(user_logged_out)
+def set_user_offline(sender, user, request, **kwargs):
+    status, created = UserStatus.objects.get_or_create(user=user)
+    status.is_online = False
+    status.save()

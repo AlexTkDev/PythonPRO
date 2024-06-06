@@ -1,5 +1,14 @@
 from django.urls import path
-from .views import IndexView, SaveTextView, EditTextView, RemoveTextView, LoginView, RegisterView, LogoutView
+from .views import (
+    IndexView,
+    SaveTextView,
+    EditTextView,
+    RemoveTextView,
+    LoginView,
+    RegisterView,
+    LogoutView,
+    get_user_status
+)
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -9,4 +18,6 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('register/', RegisterView.as_view(), name='register'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('status/<str:username>/', get_user_status, name='get_user_status'),
+
 ]

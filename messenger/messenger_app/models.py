@@ -36,3 +36,11 @@ class MessageLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     action = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
+
+
+class UserStatus(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="status")
+    is_online = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username} - {'Online' if self.is_online else 'Offline'}"

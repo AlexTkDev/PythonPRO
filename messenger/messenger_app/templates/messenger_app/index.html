@@ -11,7 +11,7 @@
             {% endfor %}
         </ul>
     {% endif %}
-    
+
     {% if not give_access_to_chat %}
         <div class="row justify-content-center align-items-center">
             <p><b>{{ user.username }}</b>, У вас нет прав для просмотра контента!</p>
@@ -46,7 +46,20 @@
                                 {% endif %}
                                 {{ message.message }}
                             </td>
-                            <td>{{ message.author.username }}</td>
+                            <td>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    {{ message.author.username }}
+                                    <a class="btn btn-secondary text-white-50 btn-sm"
+                                       id="status-{{ message.author.username }}"
+                                       data-username="{{ message.author.username }}">
+                                        {% if message.author.status.is_online %}
+                                            Online
+                                        {% else %}
+                                            Offline
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </td>
                             <td>{{ message.date_sent|date:"d m Y H:i" }},<br> {{ message.date_sent|timesince }}</td>
                         </tr>
                     {% endfor %}

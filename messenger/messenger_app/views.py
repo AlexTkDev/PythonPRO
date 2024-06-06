@@ -21,6 +21,10 @@ from .mixins import (
     StaffRequiredMixin
 )
 from .signals import create_superuser_notification
+from django.http import JsonResponse
+from .models import UserStatus
+from django.contrib.auth.models import User
+from django.views.decorators.http import require_GET
 
 
 class IndexView(CustomLoginRequiredMixin, ActiveUserRequiredMixin, View):
@@ -145,3 +149,15 @@ class LogoutView(CustomLoginRequiredMixin, ActiveUserRequiredMixin, View):
     def get(self, request):
         auth.logout(request)
         return redirect('index')
+
+
+@require_GET
+def get_user_status(request, username):
+    try:
+        user = User.objects.get(username=username)
+        status = UserStatus.objects.get(user=user)
+        return JsonResponse({'is_online': status.is_online})
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'User does not exist'}, status=404)
+    except UserStatus.DoesNotExist:
+        return JsonResponse({'is_online': False})
