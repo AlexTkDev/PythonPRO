@@ -38,4 +38,4 @@ uritemplate==4.1.1
 vine==5.1.0
 wcwidth==0.2.13
 wheel==0.43.0
-gunicorn==20.1.0
+gunicorn==22.0.0
