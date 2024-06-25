@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: ["gunicorn", "--bind", "0.0.0.0:8000", "messenger.wsgi:application"]
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=messenger.settings
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+    networks:
+      - messenger-network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: messenger_db
+      POSTGRES_USER: messenger_user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - messenger-network
+
+  redis:
+    image: redis:latest
+    networks:
+      - messenger-network
+
+volumes:
+  postgres_data:
+
+networks:
+  messenger-network:
