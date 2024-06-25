@@ -10,6 +10,9 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - redis
+      - celery_worker
+      - celery_beat
     environment:
       - DJANGO_SETTINGS_MODULE=messenger.settings
       - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
@@ -17,18 +20,47 @@ services:
       - messenger-network
 
   db:
-    image: postgres:latest
+    image: postgres:16
     environment:
       POSTGRES_DB: messenger_db
       POSTGRES_USER: messenger_user
       POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - messenger-network
 
   redis:
-    image: redis:latest
+    image: redis:6
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    networks:
+      - messenger-network
+
+  celery_worker:
+    build: .
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    command: ["celery", "-A", "messenger", "worker", "--loglevel=info"]
+    networks:
+      - messenger-network
+
+  celery_beat:
+    build: .
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    command: ["celery", "-A", "messenger", "beat", "--loglevel=info"]
     networks:
       - messenger-network
 

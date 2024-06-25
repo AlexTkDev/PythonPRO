@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'messenger_db',
         'USER': 'messenger_user',
         'PASSWORD': 'password',
-        'HOST': 'db',  # Имя сервиса базы данных из docker-compose.yaml
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -129,11 +129,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Настройки Celery
 CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Kiev'
+
 CELERY_BEAT_SCHEDULE = {
     'log_last_10_messages_every_5_minutes': {
         'task': 'drf_message_app.tasks.log_last_10_messages',
-        'schedule': crontab(minute='*/5'),  # Каждые 5 минут
+        'schedule': crontab(minute='*/5'),
     },
 }
 
