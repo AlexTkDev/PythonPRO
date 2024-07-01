@@ -36,7 +36,7 @@ media/
 Thumbs.db
 
 # Editors and IDEs
-.idea/
+.idea
 .vscode/
 *.sublime-project
 *.sublime-workspace
