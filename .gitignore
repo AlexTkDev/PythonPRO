@@ -51,6 +51,7 @@ Desktop.ini
 
 # PyCharm
 # User-specific stuff:
+.idea
 .idea/*
 .idea/**/*
 !*.iml
