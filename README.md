@@ -1,24 +1,19 @@
 # PythonPRO
 
-Этот репозиторий содержит конспект, составленный во время обучения в компьютерной школе Hillel на курсе PythonPRO.
+This repository contains notes taken during a PythonPRO course at Hillel Computer School.
 
-## Установка
-
-Для локального клонирования репозитория и работы с ним выполните следующие команды:
-
+## Installation
+To clone the repository locally and work with it, run the following commands:
 ```bash
 git clone https://github.com/AlexTkDev/PythonPRO.git
 cd PythonPRO
 ```
 
-## Использование
+## Usage
+Open the files with notes in any text editor or IDE to study and review the material covered. Notes contain theoretical notes, code samples and homework.
 
-Откройте файлы с конспектами в любом текстовом редакторе или IDE для изучения и повторения пройденного материала. Конспекты содержат теоретические заметки, примеры кода и домашние задания.
+## Contribution
+If you would like to contribute changes or improvements, please create a new pull request or open an issue.
 
-## Вклад
-
-Если вы хотите внести изменения или улучшения, пожалуйста, создайте новый pull request или откройте issue.
-
-## Контакты
-
-Если у вас есть вопросы, вы можете связаться со мной через GitHub: [AlexTkDev](https://github.com/AlexTkDev).
+## Contacts
+If you have any questions, you can contact me via GitHub: [AlexTkDev](https://github.com/AlexTkDev).
